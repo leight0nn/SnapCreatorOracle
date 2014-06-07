@@ -3,10 +3,10 @@
 # recover_rac.ksh
 # Created 05/17/2014
 #
-# Mercy
+# 
 #
 # Authors:	Leighton L. Nelson
-#
+#			leightonn@gmail.com
 #
 # Purpose: Recover and rename cloned RAC database with multiple threads to a single instance
 # The script assumes that the database has already been cloned and controlfile recreated.
@@ -21,7 +21,6 @@
 #		3) Parameterize more options
 #
 #######################################################################################################
-set -x
 ORACLE_HOME=$ORACLE_BASE/11.2.0/dbhome_1
 ORACLE_SID=$1
 #CLONE=$ORACLE_SID
@@ -115,6 +114,7 @@ $ORACLE_HOME/bin/sqlplus "/ as sysdba" <<EOF
 spool '$TMPDIR/dbstat.out' replace
 select open_mode from v\$database;
 spool off
+exit
 EOF
 }
 
@@ -237,4 +237,3 @@ add_temp_file
 cleanup_tmp
 #echo "Database Clone for $CLNSID completed successfully"
 exit 
-set +x
